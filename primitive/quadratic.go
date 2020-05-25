@@ -99,5 +99,5 @@ func (q *Quadratic) Rasterize() []Scanline {
 	path.Add2(p2, p3)
 	width := fix(q.Width)
 	//return strokePath(q.Worker, path, width, raster.RoundCapper, raster.RoundJoiner)
-	return strokePath(q.Worker, path, width, raster.SquareCapper, raster.RoundJoiner)
+	return strokePath(q.Worker, path, width, raster.squareCapper, raster.roundJoiner)
 }
