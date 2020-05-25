@@ -25,6 +25,7 @@ var (
 	Alpha        int
 	InputSize    int
 	OutputSize   int
+	MinQuadWidth float64
 	MaxQuadWidth float64
 	Mode         int
 	Workers      int
@@ -53,6 +54,7 @@ type shapeConfig struct {
 	Mode         int
 	Alpha        int
 	Repeat       int
+	MinQuadWidth float64
 	MaxQuadWidth float64
 }
 
@@ -64,7 +66,7 @@ func (i *shapeConfigArray) String() string {
 
 func (i *shapeConfigArray) Set(value string) error {
 	n, _ := strconv.ParseInt(value, 0, 0)
-	*i = append(*i, shapeConfig{int(n), Mode, Alpha, Repeat, MaxQuadWidth})
+	*i = append(*i, shapeConfig{int(n), Mode, Alpha, Repeat, MinQuadWidth, MaxQuadWidth})
 	return nil
 }
 
@@ -118,6 +120,7 @@ func main() {
 		Configs[0].Mode = Mode
 		Configs[0].Alpha = Alpha
 		Configs[0].Repeat = Repeat
+		Configs[0].MinQuadWidth = MinQuadWidth
 		Configs[0].MaxQuadWidth = MaxQuadWidth
 	}
 	for _, config := range Configs {
@@ -188,7 +191,7 @@ func main() {
 
 			// find optimal shape and add it to the model
 			t := time.Now()
-			n := model.Step(primitive.ShapeType(config.Mode), config.Alpha, config.Repeat, config.MaxQuadWidth)
+			n := model.Step(primitive.ShapeType(config.Mode), config.Alpha, config.Repeat, config.MinQuadWidth, config.MaxQuadWidth)
 			nps := primitive.NumberString(float64(n) / time.Since(t).Seconds())
 			elapsed := time.Since(start).Seconds()
 
