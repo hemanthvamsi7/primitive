@@ -14,7 +14,6 @@ type Quadratic struct {
 	X2, Y2       float64
 	X3, Y3       float64
 	Width        float64
-	MinQuadWidth float64
 	MaxQuadWidth float64
 }
 
